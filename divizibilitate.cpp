@@ -208,12 +208,6 @@ void suma_min_max(){
     cout << div_min + div_max;
 }
 
-//9.Să se scrie un program care afișează divizorii comuni ai două numere naturale citite de la tastatură.
-void divizori_comuni(){
-    int a, b;
-    cin >> a >> b;
-
-    }
 
 
 
