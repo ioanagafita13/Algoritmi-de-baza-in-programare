@@ -123,8 +123,99 @@ void afisare_index(){
     }
 }
 
+//INTERCLASARE : 
+//problema: se dau doua siruri a si b cu n, resp m elem, nr naturale sortate crescator. 
+//sa se construiasca un sir c, care sa contina in ordine crescatoare, elem din sirurile a si b.
+void interclasare(){
+    int n, m, a[100005], b[100005], c[200005];
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
+    }
+    cin >> m;
+    for (int i = 1; i <= m; i++) {
+        cin >> b[i];
+    }
+    int i = 1, j = 1;
+    int k = 0;
+    while (i <= n && j <= m){ //cat timp avem nr din amblele siruri:
+        if (a[i] < b[j]){ //
+            ++k;
+            c[k] = a[i]; 
+            ++i; // incrementam pt ca nr de la poz resp e pus deja in sirul nou, de aceea trecem la urm
+        }
+        else {
+            ++k;
+            c[k] = b[j];
+            ++j;
+        }
+    } // dupa ce se termina while, unul dintre siruri se term primul 
+    //(nu se stie care), presupunem ca poate fi oricare din ele
+    while (i <= n){ 
+        ++k;
+        c[k] = a[i];
+        ++i; // daca se continua primul, adaugam din el
+    }
+    while (j <= m){
+        ++k;
+        c[k] = b[j];
+        ++j; // daca se continua al doilea, adaugam din el
+    }
+
+    for (int i = 1; i <= n + m; i++){
+        cout << c[i] << " ";
+        if ( i % 10 == 0){
+            cout << '\n';
+        }
+    }
+}
+
+//MERGE SORT (se foloseste interclasarea pt a face merge sort)
+
+int a[100005], b[100005];
+void mergeSort(int left, int right){
+    if (left == right){ // daca intervalul este de un sg numar-nu mai trb sortat-
+        return; //nu mai facem nimic,  ne intoarcem
+    }
+    //in orice alt caz, impartim in doua intervale
+    int middle = (left + right) / 2;
+    mergeSort(left, middle); // pt prima jumatate
+    mergeSort(middle + 1, right);
+    int i = left, j = middle + 1; //inceputurile celor doua intervale
+    int k = 0;
+    while (i <= middle && j <= right){ // aici se face interclasarea
+        if (a[i] < b[j]){
+            b[++k] = a[i++];
+        }
+        else {
+            b[++k] = a[j++];
+        }
+    }
+    while (i <= middle){
+        b[++k] = a[i++];
+    }
+    while (j <= right){
+        b[++k] = a[j++];
+    }
+    k = 0;
+    for (int i = left; i <= right; ++i){
+        a[i] = b[++k];
+    }
+}
+    
 
 int main (){
+
+    //pt merge sort:
+    int n, a[100005];
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
+    }
+    mergeSort (1, n);
+    for (int i = 1; i <= n; i++){
+            cout << a[i] << " ";
+    }
 
 
 
