@@ -72,6 +72,7 @@ void grup_nul_secv(){
             }
         // i = i + p - 1; //(se adauga aceasta linie pt varianta mai optimizata)
         }
+        // nu vreau commit
     }
 
     cout << pos1 << pos2 << '\n';
