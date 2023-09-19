@@ -15,7 +15,7 @@ void bubble_sort(){
         while (!sorted){
             sorted = true;
             for (int i = 1; i < n; i++){
-                if (a[i] < a[i+1]){
+                if (a[i] > a[i+1]){
                     swap (a[i], a[i+1]);
                     sorted = false;
                 }
@@ -66,6 +66,7 @@ bool prim(int x){
 }
 
 
+
 //problema 1:  sa se afiseze in ordine crescatoare valorile prime din acest vector;
 void afisare_prim_cresc(){
     int n, a[1005];
@@ -103,7 +104,7 @@ void afisare_index(){
     cin >> n;
     for (int i = 1; i <= n; i++){
         cin >> a[i];
-        pos[i] = i;
+        pos[i] = i; // pozitiile initiale ale fiecarui copil
     } 
     for (int i = 1; i <= n; i++){ // este in fata pozitiei i
         int mini = a[i];

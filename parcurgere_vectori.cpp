@@ -125,7 +125,8 @@ void sterge_pozitie(){
     }
 }
 
-    //varianta 2: 
+    //varianta 2: ................... fara vector propriu-zis
+
     // int x;
     // for (int i=1; i<=n; i++){
     //     cin >> x;
@@ -134,32 +135,197 @@ void sterge_pozitie(){
     //     }
     // }
 
-       
+    //...............varianta 3: metoda "container-ului"
+
+    // int y[1505], k = 0;
+    // for (int i = 1; i <= n; i++){
+    //     if (i != p){
+    //         ++k;
+    //         y[k] = v[i];
+    //     }
+    // }
+    // for (int i = 1; i <= n; i++){
+    //     cout << y[i] << " ";
+    // }
+
+
+
+
+    //.................varianta 4: parcurgere incepand cu poza p+1
+    // for (int i = p+1; i <= n; i++){
+    //     v[i-1] = v[i]; //inclocuim elem de la poz p cu cel de pe poz urm 
+    // }
+    // --n; 
+
+
+
 //2. sa se stearga dintr-un vector elementele pare
 
 void  sterge_pare(){
     int n, p, v[1505];
     cin >> n >> p;
-    for (int i=1; i<=n; i++){
+    for (int i = 1; i <= n; i++){
         cin >> v[i];
     }
-    for(int i=1; i<=n; i++){
-        if(v[i] % 2 == 0){
-            for (int j = i+1; j<=n; j++){
+    for(int i = 1; i <= n; i++){
+        if (v[i] % 2 == 0){
+            for (int j = i+1; j <= n; j++){
                 v[j-1] = v[j];
             }
+            --i;
             --n;
         }
     }
 
 
-    for (int i=1; i<=n; i++){
+    for (int i = 1; i <= n; i++){
         cout << v[i] << " ";
     }
 
 }
-    
 
+//inserare element:
+//problema : Să se insereze pe o poziție dată într-un șir o valoare precizată.
+    // ...................varianta 1:.......afisam vectorul si cand intalneste poz p, il punem pe x
+    void inserare_valoare_data(){
+    int v[1505], n, x, p;
+    cin >> n >> x >> p;
+    for (int i = 1; i <= n; i++){
+        cin >> v[i];
+    }
+    for (int i = 1; i <= n; i++){
+        if (i == p){
+            cout << x << " ";
+        }
+        cout << v[i] << " ";
+    }
+   } 
+
+   //..............var 2: container-ul...............
+//    int y[1005], k = 0;
+//    for (int i = 1; i <= n; i++){
+//         if ( i == p ){
+//             ++k;
+//             y[k] = x;
+//         }
+//         ++k;
+//         y[k] = v[i];
+//     }
+//     for (int i = 1; i <= k; i++){
+//         cout << y[k] << " ";
+//     }
+
+    //.........var 3: de la poz i+1 "mutam spre dreapta"
+    // for (int i = n; i >= p; --i){
+    //     v[i+1] = v[i];
+    // }
+    // v[p] = x;
+    // ++n;
+
+    //problema 3: sa se insereze intr-un sir dupa fiecare element par, dublul sau
+    void inserare_dublu_par(){
+        int n, v[55];
+        cin >> n;
+        for (int i = 1; i <= n; i++){
+            cin >> v[i];
+        }
+        for (int i = 1; i <= n; i++){
+            if (v[i] % 2 == 0){
+               for (int j = n; j >= i; j--){
+                    v[j+1] = v[j];
+                }
+                v[i+1] = v[i] * 2;
+                ++i;
+                ++n;
+            }
+        }
+        for (int i = 1; i <= n; i++){
+            cout << v[i] << " ";
+        }
+    }
+
+    //STERGERI
+    //problema: sa se stearga dintr-un vector elementele egale cu cea mai mica val din vector.
+    void sterge_minim(){
+        int n, v[1000];
+        cin >> n;
+        for (int i = 1; i <= n; i++){
+            cin >> v[i];
+        }
+        int mini = 2e9;
+        for (int i = 1; i <= n; i++){
+            if( v[i] < mini){
+                mini = v[i];
+            }
+        }
+        for (int i = 1; i <= n; i++){
+            if (v[i] == mini){
+                for (int j = i+1; j <= n; j++){
+                    v[j-1] = v[j];
+                }   
+            --n;
+            --i;         
+            }
+        }
+        for (int i = 1; i <= n; i++){
+            cout << v[i] << " ";
+        }
+    }
+    //Se citește un șir cu n elemente, numere întregi. 
+    //Să se șteargă elementele care se repetă, păstrându-se doar primul de la stânga la dreapta.
+    void sterge_rep(){
+        int n, v[1000];
+        cin >> n;
+        for (int i = 1; i <= n; i++){
+            cin >> v[i];
+        }
+        for ( int i = 1; i <= n; i++){
+            for ( int j = 1; j <= n; j++){
+                if ( v[j] == v[i]){
+                    for (int t = j+1; t <= n; t++){
+                        v[t-1] = v[t];
+                    }
+                    --n;
+                    --j;
+                }
+            }
+
+        }
+        for (int i = 1; i <= n; i++){
+            cout << v[i] << " ";
+        }
+    }
+    //Se dau n numere întregi. Să se insereze 
+    //între oricare două numere de aceeași paritate media lor aritmetică.
+
+    void inserare_medie_aritm(){
+        int n, v[205];
+        cin >> n;
+        for (int i = 1; i <= n; i++){
+            cin >> v[i];
+        }
+        for (int i = 1; i <= n; i++){
+            if (abs(v[i]) % 2 == abs(v[i+1]) % 2){
+                for ( int j = n; j >= i+1; j++){
+                    v[j+1] = v[j];
+                }
+                v[i+1] = (v[i] + v[i+2]) / 2;
+                n++;
+                i++;
+            }
+        } 
+
+        for (int i = 1; i <= n; i++){
+            cout << v[i] << " ";
+        }
+    }
+
+
+
+
+       
+
+    
 
 
 
@@ -168,7 +334,10 @@ int main(){
     //sterge_pozitie();
     //schimba_ordine();
     //afis_interval_min_max();
-    afisare_impare_invers();
+    //afisare_impare_invers();
+    //inserare_dublu_par();
+    //sterge_minim();
+
 
     return 0;
 }
